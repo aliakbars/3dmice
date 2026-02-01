@@ -1,7 +1,7 @@
 [project]
 name = "mice3d"
 version = "0.1.0"
-description = "Add your description here"
+description = "Unofficial implementation of 3D-MICE from Luo et al. (2017)"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
