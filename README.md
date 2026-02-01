@@ -40,13 +40,20 @@ median = MedianImputer()
 
 ## Results on PhysioNet2012
 
-| Method   | MAE ↓ | RMSE ↓ | MRE ↓ |
-|----------|-------|--------|-------|
-| **3D-MICE** | **12.36** | 60.73 | **0.169** |
-| LOCF     | 13.58 | **58.71** | 0.186 |
-| Median   | 19.42 | 78.55 | 0.265 |
+| Method   | MAE ↓ | RMSE ↓ | MRE ↓ | Time |
+|----------|-------|--------|-------|------|
+| **GP** | **12.64** | 67.16 | **0.171** | 23s |
+| 3D-MICE | 12.83 | 67.38 | 0.174 | 40s |
+| LOCF | 13.95 | **64.78** | 0.189 | 0.05s |
+| Median | 19.49 | 82.98 | 0.264 | 0.01s |
+| MICE | 20.49 | 91.17 | 0.278 | 11s |
 
-3D-MICE outperforms LOCF by 8.9% and Median by 36.3% on MAE.
+### Key Findings
+
+- **GP-only performs best on sparse data**: PhysioNet2012 has ~80% missing values; longitudinal patterns dominate
+- **3D-MICE closely matches GP**: Variance-weighted combination adds minimal overhead (MAE +1.5%)
+- **MICE alone underperforms Median**: Cross-sectional correlations are weak on sparse ICU data
+- **LOCF has best RMSE**: Avoids extreme predictions by carrying forward observed values
 
 ## Benchmarking with BenchPOTS
 

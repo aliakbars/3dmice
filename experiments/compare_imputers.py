@@ -3,6 +3,8 @@ Experiment script to compare imputation methods on PhysioNet2012.
 
 Compares:
 - 3D-MICE (cross-sectional MICE + longitudinal GP)
+- MICE-only (cross-sectional only)
+- GP-only (longitudinal only)
 - LOCF (Last Observation Carried Forward)
 - Median imputation
 """
@@ -22,6 +24,8 @@ from evaluation import evaluate_imputation
 from imputers.locf import LOCFImputer
 from imputers.median import MedianImputer
 from imputers.mice_3d import MICE3D
+from imputers.mice import MICEImputer
+from imputers.gp import GPImputer
 
 
 def run_experiment(
@@ -78,10 +82,9 @@ def run_experiment(
     imputers = {
         "LOCF": LOCFImputer(),
         "Median": MedianImputer(),
-        "3D-MICE": MICE3D(
-            mice_max_iter=10,
-            random_state=seed,
-        ),
+        "MICE": MICEImputer(max_iter=10, random_state=seed),
+        "GP": GPImputer(random_state=seed),
+        "3D-MICE": MICE3D(mice_max_iter=10, random_state=seed),
     }
     
     results = {}
